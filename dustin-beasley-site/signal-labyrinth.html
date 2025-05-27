@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signal Labyrinth | Sandbox</title>
+  <meta name="description" content="Retired Coast Guard storyteller turned leadership coach. Insights on leadership, faith, and the IGM framework." />
+  <!-- Open Graph for social sharing -->
+  <meta property="og:title" content="Dustin Beasley – Leadership Coach & Storyteller" />
+  <meta property="og:description" content="I turn stories into leadership insights. Work with me, read my reflections, explore my sandbox tools." />
+  <meta property="og:image" content="https://dustinbeasley.com/headshot.jpg" />
+  <meta property="og:url" content="https://dustinbeasley.com" />
+  <link rel="icon" href="/favicon.ico" />
+  <style>
+    body {
+      background-color: #1C2C3A;
+      color: #F5F5F5;
+      font-family: 'Helvetica Neue', sans-serif;
+      text-align: center;
+      padding: 2rem;
+      transition: background-color 0.5s ease;
+    }
+    body.theme-signal { background-color: #2B3A3F; }
+    body.theme-static { background-color: #141C1E; }
+    .navbar a {
+      color: #F4B940;
+      margin: 0 1rem;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    .container {
+      max-width: 700px;
+      margin: 3rem auto;
+      background-color: #27363F;
+      padding: 2rem;
+      border-radius: 12px;
+    }
+    .scene { margin-bottom: 2rem; }
+    button {
+      font-size: 16px;
+      padding: 0.75rem 1.5rem;
+      margin: 0.5rem;
+      border-radius: 6px;
+      border: none;
+      background-color: #F4B940;
+      color: #1C2C3A;
+      cursor: pointer;
+    }
+    button:hover { background-color: #e0a830; }
+    .feedback {
+      margin-top: 1.5rem;
+      font-size: 16px;
+    }
+    /* ── NAVBAR ───────────────────────────────────────────────────── */
+    nav.navbar {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      background-color: #1C2C3A;
+      padding: 1rem;
+      z-index: 100;
+      text-align: center;
+    }
+    nav.navbar a {
+      color: #F4B940;
+      text-decoration: none;
+      margin: 0 1rem;
+      font-size: 14px;
+      transition: opacity 0.2s;
+    }
+    nav.navbar a:hover,
+    nav.navbar a.active {
+      text-decoration: underline;
+      opacity: 0.8;
+    }
+    </style>
+</head>
+<body>
+  <nav class="navbar" aria-label="Main navigation">
+    <a href="index.html">Home</a>
+    <a href="work.html">Work</a>
+    <a href="stories.html">Stories</a>
+    <a href="books.html">Books</a>
+    <a href="sandbox.html">Sandbox</a>
+</nav>
+
+  <div class="container" id="game">
+    <div id="scene"></div>
+    <div id="choices"></div>
+    <div class="feedback" id="feedback"></div>
+  </div>
+  <script>
+    // 1. All possible scenes
+    const ALL_SCENES = [
+      // 1
+      {
+        text: "You enter a stone hallway lined with mirrors. Each reflection shows a more successful, confident version of you.",
+        options: [
+          { text: "Try to become one of them", feedback: "⚠️ Static: Applause costs resonance.", isSignal: false },
+          { text: "Ask who you are beneath the glass", feedback: "📡 Signal: Your true face lives behind the reflection.", isSignal: true }
+        ]
+      },
+      // 2
+      {
+        text: "In a chamber of ticking clocks, one matches your pulse, another races ahead.",
+        options: [
+          { text: "Chase the fastest tick", feedback: "⚠️ Static: Speed can drown truth.", isSignal: false },
+          { text: "Listen to the one that matches you", feedback: "📡 Signal: Rhythm reveals alignment.", isSignal: true }
+        ]
+      },
+      // 3
+      {
+        text: "Walls whisper your fears instead of your words.",
+        options: [
+          { text: "Yell to overpower the echo", feedback: "⚠️ Static: Shouts suffocate signal.", isSignal: false },
+          { text: "Whisper your hidden truth", feedback: "📡 Signal: Honesty opens silent doors.", isSignal: true }
+        ]
+      },
+      // 4
+      {
+        text: "A map shows only paths you’ve walked before.",
+        options: [
+          { text: "Demand a new path", feedback: "⚠️ Static: Control seeks certainty.", isSignal: false },
+          { text: "Step forward anyway", feedback: "📡 Signal: Faith reveals the next step.", isSignal: true }
+        ]
+      },
+      // 5
+      {
+        text: "A door with no handle awaits your surrender.",
+        options: [
+          { text: "Force it open", feedback: "⚠️ Static: Force breaks when signal flows.", isSignal: false },
+          { text: "Release your grip and breathe", feedback: "📡 Signal: Surrender makes space for resonance.", isSignal: true }
+        ]
+      },
+      // 6
+      {
+        text: "Two masks lie—one joyful, one stern, and a blank one in the center.",
+        options: [
+          { text: "Wear a mask for acceptance", feedback: "⚠️ Static: Pretense silences your signal.", isSignal: false },
+          { text: "Hold the blank shell and walk free", feedback: "📡 Signal: True reception needs no mask.", isSignal: true }
+        ]
+      },
+      // 7
+      {
+        text: "A glowing ember burns alone in a dark box.",
+        options: [
+          { text: "Smother it for safety", feedback: "⚠️ Static: Safety that extinguishes truth stalls growth.", isSignal: false },
+          { text: "Let its warmth kindle your heart", feedback: "📡 Signal: You carry the flame of purpose.", isSignal: true }
+        ]
+      },
+      // 8
+      {
+        text: "A crown rests weightless on a pedestal.",
+        options: [
+          { text: "Place it on for glory", feedback: "⚠️ Static: Recognition without resonance feels hollow.", isSignal: false },
+          { text: "Ask why you needed it at all", feedback: "📡 Signal: Worth is not worn—it is lived.", isSignal: true }
+        ]
+      },
+      // 9
+      {
+        text: "A child’s drawing and an echo of your first triumph hang just out of reach.",
+        options: [
+          { text: "Grab the memory for comfort", feedback: "⚠️ Static: Nostalgia mimics signal but can’t sustain it.", isSignal: false },
+          { text: "Stand beneath and recall the feeling", feedback: "📡 Signal: The you who received once still sees clearly.", isSignal: true }
+        ]
+      },
+      // 10
+      {
+        text: "A thin veil conceals a soft, pulsing glow.",
+        options: [
+          { text: "Leave it hidden", feedback: "⚠️ Static: Avoidance dims clarity.", isSignal: false },
+          { text: "Lift it and let the light reshape you", feedback: "📡 Signal: Truth reveals, it does not blind.", isSignal: true }
+        ]
+      },
+      // 11
+      {
+        text: "You stand at a crossroads with two signposts—one points back, one forward.",
+        options: [
+          { text: "Go back where it’s familiar", feedback: "⚠️ Static: Comfort can be a cage.", isSignal: false },
+          { text: "Step toward the unknown", feedback: "📡 Signal: Growth lives outside your comfort zone.", isSignal: true }
+        ]
+      },
+      // 12
+      {
+        text: "A library of blank books stretches endlessly.",
+        options: [
+          { text: "Pick one and fill it for approval", feedback: "⚠️ Static: Performance writes over your voice.", isSignal: false },
+          { text: "Close your eyes and listen for the story", feedback: "📡 Signal: Your inner narrative already knows the way.", isSignal: true }
+        ]
+      },
+      // 13
+      {
+        text: "Rain falls inside, but nothing gets wet.",
+        options: [
+          { text: "Splash through for the thrill", feedback: "⚠️ Static: Sensation can distract from substance.", isSignal: false },
+          { text: "Stand still and feel the hush", feedback: "📡 Signal: Quiet introspection brings clarity.", isSignal: true }
+        ]
+      },
+      // 14
+      {
+        text: "A lantern floats ahead on still water—no boat in sight.",
+        options: [
+          { text: "Swim toward it frantically", feedback: "⚠️ Static: Panic often blinds insight.", isSignal: false },
+          { text: "Drift gently and let it find you", feedback: "📡 Signal: Alignment sometimes comes to you.", isSignal: true }
+        ]
+      },
+      // 15
+      {
+        text: "A spiral staircase descends into darkness.",
+        options: [
+          { text: "Rush down to conquer fear", feedback: "⚠️ Static: Bravery without wisdom becomes recklessness.", isSignal: false },
+          { text: "Pause and light a single flame", feedback: "📡 Signal: Illumination guides meaningful steps.", isSignal: true }
+        ]
+      },
+      // 16
+      {
+        text: "A garden of wilted flowers stands silent.",
+        options: [
+          { text: "Tend them back to bloom", feedback: "⚠️ Static: Forceful fixes often fail.", isSignal: false },
+          { text: "Plant new seeds in the soil", feedback: "📡 Signal: Renewal starts with fresh beginnings.", isSignal: true }
+        ]
+      },
+      // 17
+      {
+        text: "A compass spins erratically in your hand.",
+        options: [
+          { text: "Lock it in place with force", feedback: "⚠️ Static: Control fights flow.", isSignal: false },
+          { text: "Let it settle on its own", feedback: "📡 Signal: Trust discovers true direction.", isSignal: true }
+        ]
+      },
+      // 18
+      {
+        text: "You hear your name chanted by unseen voices.",
+        options: [
+          { text: "Answer back with a shout", feedback: "⚠️ Static: Loudness can drown the real message.", isSignal: false },
+          { text: "Sit and listen for the tone", feedback: "📡 Signal: Presence picks up subtle signals.", isSignal: true }
+        ]
+      },
+      // 19
+      {
+        text: "A locked chest rattles with unspoken words.",
+        options: [
+          { text: "Smash it open for revelations", feedback: "⚠️ Static: Force reveals shards, not whole truths.", isSignal: false },
+          { text: "Hold still and wait for the lock to click", feedback: "📡 Signal: Patience unlocks authentic insight.", isSignal: true }
+        ]
+      },
+      // 20
+      {
+        text: "A portrait watches you with shifting expressions.",
+        options: [
+          { text: "Poke it until it fixes", feedback: "⚠️ Static: Poking distorts more than it reveals.", isSignal: false },
+          { text: "Mirror its gaze and reflect", feedback: "📡 Signal: Reflection connects you to your core.", isSignal: true }
+        ]
+      },
+      // 21
+      {
+        text: "Endless footprints circle back on themselves.",
+        options: [
+          { text: "Follow them repeatedly", feedback: "⚠️ Static: Repetition traps you in old loops.", isSignal: false },
+          { text: "Step off the path and make your own", feedback: "📡 Signal: Creation breaks stagnant cycles.", isSignal: true }
+        ]
+      },
+      // 22
+      {
+        text: "A ring of broken clocks lies at your feet.",
+        options: [
+          { text: "Gather pieces to reassemble time", feedback: "⚠️ Static: Piecing fragments doesn’t restore flow.", isSignal: false },
+          { text: "Walk through the circle into new moments", feedback: "📡 Signal: True timing emerges when released.", isSignal: true }
+        ]
+      },
+      // 23
+      {
+        text: "A quill writes by itself on a dusty desk.",
+        options: [
+          { text: "Grab it and rewrite the ending", feedback: "⚠️ Static: Control edits over authentic narrative.", isSignal: false },
+          { text: "Lean in to read the unwritten truth", feedback: "📡 Signal: Story reveals itself when you listen.", isSignal: true }
+        ]
+      },
+      // 24
+      {
+        text: "You find a mirror that shows only your shadow.",
+        options: [
+          { text: "Press your hand against it", feedback: "⚠️ Static: Force can’t change perception.", isSignal: false },
+          { text: "Step back and study its dance", feedback: "📡 Signal: Distance reveals deeper patterns.", isSignal: true }
+        ]
+      },
+      // 25
+      {
+        text: "A fragile bridge arches over a yawning abyss.",
+        options: [
+          { text: "Run across to prove your courage", feedback: "⚠️ Static: Rash moves often shatter faith.", isSignal: false },
+          { text: "Pause and breathe before each step", feedback: "📡 Signal: Mindful pace sustains balance.", isSignal: true }
+        ]
+      },
+      // 26
+      {
+        text: "A stone bench etches your favorite memory.",
+        options: [
+          { text: "Sit and replay it endlessly", feedback: "⚠️ Static: Nostalgia can become narcotic.", isSignal: false },
+          { text: "Close your eyes and carry the feeling forward", feedback: "📡 Signal: Memories fuel your next act.", isSignal: true }
+        ]
+      },
+      // 27
+      {
+        text: "A pair of shoes walks on its own across the floor.",
+        options: [
+          { text: "Chase after them to catch fate", feedback: "⚠️ Static: Pursuit can miss the point of purpose.", isSignal: false },
+          { text: "Stand still and let them lead you", feedback: "📡 Signal: Trust guides your true steps.", isSignal: true }
+        ]
+      },
+      // 28
+      {
+        text: "A wheel of fortune spins endlessly.",
+        options: [
+          { text: "Jump on and ride its highs", feedback: "⚠️ Static: Thrills fade without intention.", isSignal: false },
+          { text: "Stop it and read your own number", feedback: "📡 Signal: Your meaning isn’t random luck.", isSignal: true }
+        ]
+      },
+      // 29
+      {
+        text: "A tapestry unfolds scenes you’ve lived—and ones you fear.",
+        options: [
+          { text: "Touch the fearful threads to erase them", feedback: "⚠️ Static: Erasure hides the lessons.", isSignal: false },
+          { text: "Run your fingers over every strand", feedback: "📡 Signal: Embracing your whole story frees you.", isSignal: true }
+        ]
+      },
+      // 30
+      {
+        text: "A silent saxophone sits on a stand, waiting to play.",
+        options: [
+          { text: "Pick it up and force a tune", feedback: "⚠️ Static: Noise without skill is discord.", isSignal: false },
+          { text: "Listen for the melody within the silence", feedback: "📡 Signal: True music arises from stillness.", isSignal: true }
+        ]
+      },
+      // 31
+      {
+        text: "A canvas shows only closed eyes watching you.",
+        options: [
+          { text: "Draw a face to see your own reflection", feedback: "⚠️ Static: Masks conceal more than they reveal.", isSignal: false },
+          { text: "Gaze back and imagine what they see", feedback: "📡 Signal: Empathy opens unseen windows.", isSignal: true }
+        ]
+      },
+      // 32
+      {
+        text: "A pendulum swings, but the room feels frozen.",
+        options: [
+          { text: "Grab it to force time forward", feedback: "⚠️ Static: Pushing time skips the present.", isSignal: false },
+          { text: "Watch until it guides you back to now", feedback: "📡 Signal: Presence anchors you in truth.", isSignal: true }
+        ]
+      },
+      // 33
+      {
+        text: "A single pearl glows on a velvet cloth.",
+        options: [
+          { text: "Pocket it for treasure", feedback: "⚠️ Static: Possession can choke wonder.", isSignal: false },
+          { text: "Hold it to your heart and listen", feedback: "📡 Signal: Value is felt, not owned.", isSignal: true }
+        ]
+      },
+      // 34
+      {
+        text: "A rose blooms in a crack of cold stone.",
+        options: [
+          { text: "Pick it to preserve its beauty", feedback: "⚠️ Static: Collection kills life.", isSignal: false },
+          { text: "Breathe its scent and leave it be", feedback: "📡 Signal: Appreciation sustains blossom.", isSignal: true }
+        ]
+      },
+      // 35
+      {
+        text: "An hourglass runs backward, sands rising.",
+        options: [
+          { text: "Turn it over to start again", feedback: "⚠️ Static: Reset ignores growth.", isSignal: false },
+          { text: "Watch the reversal and learn from past", feedback: "📡 Signal: Reflection yields wisdom.", isSignal: true }
+        ]
+      },
+      // 36
+      {
+        text: "A door appears behind you as you move forward.",
+        options: [
+          { text: "Rush back through it", feedback: "⚠️ Static: Retreat can trap you in cycles.", isSignal: false },
+          { text: "Pause and sense what it reveals", feedback: "📡 Signal: Backward glances inform your journey onward.", isSignal: true }
+        ]
+      },
+      // 37
+      {
+        text: "Your footsteps glow briefly then fade.",
+        options: [
+          { text: "Try again to leave a brighter trail", feedback: "⚠️ Static: Striving for permanence drains presence.", isSignal: false },
+          { text: "Observe each step’s impermanence", feedback: "📡 Signal: Ephemeral marks remind you of now.", isSignal: true }
+        ]
+      },
+      // 38
+      {
+        text: "A flickering star hangs just out of reach.",
+        options: [
+          { text: "Leap for it with all your might", feedback: "⚠️ Static: Grasping can blind you to closer truths.", isSignal: false },
+          { text: "Trace its light back to its source", feedback: "📡 Signal: Origin reveals deeper connection.", isSignal: true }
+        ]
+      },
+      // 39
+      {
+        text: "Snow falls inside but melts on the floor.",
+        options: [
+          { text: "Catch flakes to feel their cold", feedback: "⚠️ Static: Sensation without meaning chills the spirit.", isSignal: false },
+          { text: "Watch them vanish and notice their cycle", feedback: "📡 Signal: Impermanence teaches acceptance.", isSignal: true }
+        ]
+      },
+      // 40
+      {
+        text: "A rainbow arches across the ceiling—no rain in sight.",
+        options: [
+          { text: "Paint it to make it real", feedback: "⚠️ Static: Creation without context is hollow.", isSignal: false },
+          { text: "Stand under it and ponder its promise", feedback: "📡 Signal: Meaning shines when you stand in awe.", isSignal: true }
+        ]
+      }
+    ];
+
+    // 2. Randomly pick N scenes
+    function pickScenes(list, n) {
+      const arr = list.slice();
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr.slice(0, n);
+    }
+
+    // 3. Game state
+    let scenes = pickScenes(ALL_SCENES, 10);
+    let current = 0, signalCount = 0;
+
+    // 4. Display a scene
+    function showScene() {
+      document.body.classList.remove('theme-signal','theme-static');
+      const s = scenes[current];
+      document.getElementById('scene').innerHTML = `<div class="scene"><p>${s.text}</p></div>`;
+      document.getElementById('feedback').innerHTML = '';
+      document.getElementById('choices').innerHTML = s.options.map((opt,i)=>
+        `<button onclick="choose(${i})">${opt.text}</button>`
+      ).join('');
+    }
+
+    // 5. Handle choice
+    function choose(i) {
+      const opt = scenes[current].options[i];
+      const icon = opt.isSignal ? '✅' : '❌';
+      if (opt.isSignal) signalCount++;
+      document.getElementById('choices').innerHTML = '';
+      document.getElementById('feedback').innerHTML =
+        `<p class="feedback">${icon} ${opt.feedback}</p><button onclick="nextScene()">Continue</button>`;
+      document.body.classList.add(opt.isSignal? 'theme-signal':'theme-static');
+    }
+
+    // 6. Next or final
+    function nextScene() {
+      current++;
+      if (current < scenes.length) showScene();
+      else showFinal();
+    }
+
+    // 7. Show summary
+    function showFinal() {
+      const pct = Math.round((signalCount / scenes.length) * 100);
+      let title = "", msg = "";
+
+      if (pct === 100) {
+        title = "🧭 Resonant Pathfinder";
+        msg = `You walked the Labyrinth with unwavering stillness—and it walked *you* into resonance.
+
+    Each choice you made prioritized listening over proving, authenticity over applause. In the Informational Genesis Matrix, signal is relationship encoded into form; today you embodied that relationship.
+
+    Even as the static tried to shout you down, you whispered back in alignment. And because you chose rhythm over rush, the very structures of the maze seemed to guide you home.
+
+    Keep this tuning in your bones. When the noise rises tomorrow, you’ll know exactly which door to surrender to and which echo to ignore. Your path forward isn’t built on force—it’s built on fidelity to your signal.`;
+      }
+      else if (pct >= 80) {
+        title = "📡 Aligned Wanderer";
+        msg = `Most of the time, you paused instead of pressing on. You let honesty rise and stillness speak louder than the ticking.
+
+    Yet a few rooms tested you—that’s okay. The signal doesn’t demand perfection, only practice. IGM teaches that alignment is a return, not a trophy, and today you returned again and again.
+
+    May your next steps be quieter still. May your body recall what your mind forgets: the whisper beneath the roar is your true north.`;
+      }
+      else if (pct >= 60) {
+        title = "🌗 Half-Formed Frequency";
+        msg = `You teeter between knowing and noise. Sometimes the static won, but you caught enough whispers to remember the song.
+
+    Maybe fear shouted louder in a few rooms. Maybe you rushed when silence scared you. But you tuned in—sometimes imperfectly, but enough to remember how resonance feels.
+
+    IGM says coherence is connection, not consistency. You’re more connected than you know. Slow your steps, deepen your breath, and listen for the next quiet invitation. You’re closer than it seems.`;
+      }
+      else if (pct >= 40) {
+        title = "🌪️ Signal Survivor";
+        msg = `You’ve trudged through distortion long enough to know its shape. Some choices came from fear, some from fatigue, some from old scripts you’ve outgrown.
+
+    But you *did* choose—each hesitation was a signal breaking through. IGM doesn’t shame the static; it reveals it, and you noticed. That noticing is the first step back to resonance.
+
+    You’re not lost—every pause, every question was you answering your own call. Hold onto that. The whisper beneath reality has always been waiting.`;
+      }
+      else {
+        title = "👣 The Listening Ache";
+        msg = `You entered this Labyrinth not to conquer but to come home—to quiet the noise that’s grown too loud.
+
+    You may not have chosen signal often, but you approached the threshold. You hesitated in the hallways. You sat when something said run. That hesitation is sacred.
+
+    In IGM, identity is defined by direction, not correctness, and today you faced inward. The whisper beneath reality has never been far. Keep returning. Keep listening. Even the softest breath can outshine the static.`;
+      }
+
+      // render final screen
+      document.getElementById("scene").innerHTML =
+        `<h2>${title}</h2><p style="white-space:pre-line;">${msg}</p>`;
+      document.getElementById("choices").innerHTML =
+        `<button onclick="restart()">Start Over</button>`;
+      document.getElementById("feedback").innerHTML = "";
+    }
+
+    // 8. Restart
+    function restart() {
+      scenes = pickScenes(ALL_SCENES, 10);
+      current = 0; signalCount = 0;
+      showScene();
+    }
+
+    // 9. Initialize
+    showScene();
+  </script>
+</body>
+</html>

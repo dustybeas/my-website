@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Work With Me | Dustin Beasley</title>
+  <style>
+    /* --- Reset & Base --- */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: #1C2C3A;
+      color: #F5F5F5;
+      font-family: 'Helvetica Neue', sans-serif;
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    /* --- Nav --- */
+    .navbar {
+      text-align: center;
+      padding: 1rem;
+      background-color: #1C2C3A;
+    }
+    .navbar a {
+      margin: 0 1rem;
+      color: #F4B940;
+      font-size: 14px;
+    }
+    .navbar a.active,
+    .navbar a:hover {
+      text-decoration: underline;
+      opacity: 0.8;
+    }
+
+    /* --- Wrapper --- */
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    /* --- Header --- */
+    .avatar {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 6px solid #F4B940;
+      margin: 0 auto 1rem;
+    }
+    h1 {
+      text-align: center;
+      font-size: 32px;
+      margin-bottom: 0.5rem;
+    }
+    .intro {
+      text-align: center;
+      font-size: 18px;
+      margin-bottom: 2rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* --- Services --- */
+    .service {
+      margin-bottom: 3rem;
+      text-align: left;
+    }
+    .service h2 {
+      color: #F4B940;
+      font-size: 24px;
+      margin-bottom: 0.75rem;
+    }
+    .service p {
+      font-size: 16px;
+      margin-bottom: 1rem;
+    }
+    .service hr {
+      border: none;
+      border-top: 1px solid #3A4A53;
+      margin: 2rem 0;
+    }
+    .service a.discover {
+      color: #F4B940;
+      font-weight: bold;
+    }
+
+    /* --- Contact CTA under Custom Solutions --- */
+    .cta-contact {
+      text-align: left;
+      margin-top: 1rem;
+    }
+    .cta-contact a {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      border: 2px solid #F4B940;
+      border-radius: 6px;
+      background-color: transparent;
+      color: #F4B940;
+      font-size: 16px;
+    }
+    .cta-contact a:hover {
+      background-color: #F4B940;
+      color: #1C2C3A;
+    }
+
+    /* --- Articles Section --- */
+    .articles-intro {
+      font-size: 20px;
+      margin-top: 1.5rem;  /* tighter spacing */
+      margin-bottom: 0.5rem;
+      text-align: left;
+    }
+    .articles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+      gap: 1.5rem;
+    }
+    .article-card {
+      background-color: #27363F;
+      border-radius: 8px;
+      overflow: hidden;
+      text-align: left;
+    }
+    .article-card img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+    }
+    .article-content {
+      padding: 1rem;
+    }
+    .article-content h3 {
+      margin: 0 0 0.5rem;
+      font-size: 18px;
+      color: #F4B940;
+    }
+    .article-content p {
+      margin: 0 0 0.75rem;
+      font-size: 14px;
+    }
+    .article-content a.read-more {
+      color: #FF6200;
+      font-size: 14px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <div class="navbar" aria-label="Main navigation">
+    <a href="index.html">Home</a>
+    <a href="work.html" class="active">Work</a>
+    <a href="stories.html">Stories</a>
+    <a href="books.html">Books</a>
+    <a href="sandbox.html">Sandbox</a>
+    <a href="igm.html">IGM</a>
+    <a href="podcast.html">Podcast</a>
+  </div>
+
+  <div class="container">
+    <!-- HEADSHOT + INTRO -->
+    <img src="headshot.jpg" alt="Dustin Beasley" class="avatar" />
+    <h1>Dustin Beasley</h1>
+    <p class="intro">
+      I’m a retired Coast Guard storyteller turned leadership coach. I’ve navigated 
+      stormy seas and boardroom battles, helping execs find their north star through 
+      1:1 executive coaching and workshops. Whether it’s EQ, DiSC, or conflict management, 
+      I use stories to turn chaos into clarity. 
+    </p>
+
+    <!-- SERVICES -->
+    <div class="services">
+      <div class="service">
+        <h2>1:1 Executive Coaching</h2>
+        <p>
+          Tailored, confidential sessions where we dive deep into your leadership challenges. Through
+          values-aligned goal-setting, emotional intelligence building, and strategic decision-making,
+          you’ll gain clarity, confidence, and a personalized roadmap for growth.
+        </p>
+        <p>
+          <a href="https://www.secondstateleadership.com/coaching" target="_blank">
+            Learn more →
+          </a>
+        </p>
+      </div>
+      <div class="service">
+        <h2>Interactive Workshops</h2>
+        <p>
+          My workshops cover EQ, DiSC, MBTI, Mastering Conflict, and more. They are designed to 
+          transform teams through interactive, story-driven experiences. Leaders and teams gain 
+          practical tools to communicate better, resolve conflicts, and build trust, leaving with 
+          actionable strategies to apply immediately.
+        </p>
+        <p>
+          <a href="https://secondstateleadership.com/workshops" target="_blank">
+            View workshops →
+          </a>
+        </p>
+      </div>
+      <div class="service">
+        <h2>Custom Solutions</h2>
+        <p>
+          Facing a unique leadership challenge? I create tailored solutions for organizations, from strategic 
+          planning to team alignment. Drawing on my experience with diverse teams, I’ll design a plan 
+          that addresses your specific needs and drives measurable results.
+        </p>
+        <p>
+          <a href="https://www.secondstateleadership.com/offerings" target="_blank">
+            Discover how →
+          </a>
+        </p>
+      </p>
+      <div class="cta-contact">
+        <a href="mailto:dustin@secondstateleadership.com?subject=Website%20Inquiry">
+          ✉️ Contact Me
+        </a>
+      </div>
+    </div>
+
+      <!-- ARTICLES -->
+  <p class="articles-intro" style="margin-top: 0.5rem;">
+    Dive into my latest explorations on leadership, team dynamics, and communication:
+  </p>
+  <div class="articles-grid" style="margin-top: 0.5rem;">
+    <!-- Card 1 -->
+    <div class="article-card">
+      <img src="article-debunking.jpg" alt="Debunking Myths of Happiness">
+      <div class="article-content">
+        <h3>Debunking the Myths of Happiness</h3>
+        <p>
+          Why “I’ll be happy when…” often traps us in a cycle of striving. Discover
+          a more sustainable path to joy.
+        </p>
+        <a
+          href="https://www.linkedin.com/pulse/debunking-myths-happiness-why-ill-happy-when-doesnt-beasley-cpc-2vxwc"
+          target="_blank" class="read-more">
+          Read More →
+        </a>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="article-card">
+      <img src="article-expectations.jpg" alt="Expectations Unplugged">
+      <div class="article-content">
+        <h3>Expectations Unplugged</h3>
+        <p>
+          Clear, compassionate expectations can transform psychological safety and
+          drive accountability. Here’s how.
+        </p>
+        <a
+          href="https://www.linkedin.com/pulse/expectations-unplugged-navigating-world-psychological-beasley-cpc-dpxjf"
+          target="_blank" class="read-more">
+          Read More →
+        </a>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="article-card">
+      <img src="article-science.jpg" alt="The Science of Leading Well">
+      <div class="article-content">
+        <h3>The Science of Leading Well</h3>
+        <p>
+          Transformational leadership isn’t a buzzword—it’s backed by neuroscience and
+          social psychology. Dive in.
+        </p>
+        <a
+          href="https://www.linkedin.com/pulse/science-leading-well-dive-transformational-leadership-beasley-cpc"
+          target="_blank" class="read-more">
+          Read More →
+        </a>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="article-card">
+      <img src="article-responding-salsa.jpg" alt="Responding Effectively: Salsa Dance of Communication">
+      <div class="article-content">
+        <h3>Responding Effectively: Salsa Dance of Communication</h3>
+        <p>
+          What a salsa partner can teach us about active listening, timely response, and
+          co-creating a seamless dialogue.
+        </p>
+        <a
+          href="https://www.linkedin.com/pulse/responding-effectively-salsa-dance-communication-dustin-beasley-cpc"
+          target="_blank" class="read-more">
+          Read More →
+        </a>
+      </div>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="article-card">
+      <img src="article-listening-intentionally.jpg" alt="Listening Intentionally">
+      <div class="article-content">
+        <h3>Listening Intentionally</h3>
+        <p>
+          Techniques for tuning in at work, decoding unspoken cues, and forging deeper
+          connections on your team.
+        </p>
+        <a
+          href="https://www.linkedin.com/pulse/listening-intentionally-key-effective-workplace-dustin-beasley-cpc"
+          target="_blank" class="read-more">
+          Read More →
+        </a>
+      </div>
+    </div>
+
+    <!-- Card 6 -->
+    <div class="article-card">
+      <img src="article-psych-safety.jpg" alt="Psychological Safety & Team Dynamics">
+      <div class="article-content">
+        <h3>Psychological Safety & Team Dynamics</h3>
+        <p>
+          Insights on creating a culture where people feel safe to speak up, experiment,
+          and innovate without fear.
+        </p>
+        <a
+          href="https://www.linkedin.com/pulse/psychological-safety-team-dynamics-insights-from-dustin-beasley-cpc"
+          target="_blank" class="read-more">
+          Read More →
+        </a>
+      </div>
+    </div>
+
+    <!-- Card 7 -->
+    <div class="article-card">
+      <img src="article-underestimated.jpg" alt="The Underestimated Key to Hiring Success">
+      <div class="article-content">
+        <h3>The Underestimated Key to Hiring Success</h3>
+        <p>
+          Why emotional intelligence often matters more than resume credentials—and how
+          to spot it in candidates.
+        </p>
+        <a
+          href="https://www.linkedin.com/pulse/underestimated-key-hiring-success-emotional-just-dustin-beasley-cpc"
+          target="_blank" class="read-more">
+          Read More →
+        </a>
+      </div>
+    </div>
+
+    <!-- Card 8 -->
+    <div class="article-card">
+      <img src="article-from-grape.jpg" alt="From Grape to Glass">
+      <div class="article-content">
+        <h3>From Grape to Glass</h3>
+        <p>
+          Cultivating trust in the wine industry—and universal leadership lessons about
+          patience, process, and palate.
+        </p>
+        <a
+          href="https://www.linkedin.com/pulse/from-grape-glass-cultivating-trust-wine-industry-beasley-cpc"
+          target="_blank" class="read-more">
+          Read More →
+        </a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

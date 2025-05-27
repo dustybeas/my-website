@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Sandbox | Dustin Beasley</title>
+  <meta name="description" content="Interactive IGM exercises: Signal or Static, Static Translator, Signal Labyrinth."/>
+  <!-- Open Graph -->
+  <meta property="og:title" content="Sandbox | Dustin Beasley"/>
+  <meta property="og:description" content="Convert static into signal or journey through the Signal Labyrinth."/>
+  <meta property="og:image" content="https://dustinbeasley.com/igm-whisper.jpg"/>
+  <meta property="og:url" content="https://dustinbeasley.com/sandbox.html"/>
+  <link rel="icon" href="/favicon.ico"/>
+
+  <style>
+    /* RESET & BODY */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: #1C2C3A;
+      color: #F5F5F5;
+      font-family: 'Helvetica Neue', sans-serif;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    /* NAVBAR */
+    nav.navbar {
+      position: sticky;
+      top: 0;
+      background-color: #1C2C3A;
+      padding: 1rem;
+      z-index: 100;
+    }
+    nav.navbar a {
+      color: #F4B940;
+      text-decoration: none;
+      margin: 0 1rem;
+      font-size: 14px;
+      transition: opacity 0.2s;
+    }
+    nav.navbar a:hover,
+    nav.navbar a.active {
+      text-decoration: underline;
+      opacity: 0.8;
+    }
+
+    /* MAIN CONTENT */
+    main .container {
+      flex: 1;
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    main h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    p.intro {
+      font-size: 1.25rem;
+      margin-bottom: 2rem;
+    }
+
+    /* TOOL GRID */
+    .tool-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 2rem;
+    }
+    .tool-card {
+      background: #27363F;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1rem;
+      text-align: left;
+    }
+    .tool-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: #FFB931;
+    }
+    .tool-info {
+      width: 100%;
+      flex: 1;
+    }
+    .tool-info h2 {
+      font-size: 1.25rem;
+      color: #FFB931;
+      margin-bottom: 0.5rem;
+    }
+    .tool-info p {
+      font-size: 14px;
+      line-height: 1.4;
+      margin-bottom: 1rem;
+    }
+    .tool-info a {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background: #F4B940;
+      color: #1C2C3A;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: opacity 0.2s;
+    }
+    .tool-info a:hover {
+      opacity: 0.8;
+    }
+
+    /* FOOTER */
+    footer {
+      font-size: 12px;
+      margin-top: auto;
+      padding: 2rem 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="navbar" aria-label="Main navigation">
+    <a href="index.html">Home</a>
+    <a href="work.html">Work</a>
+    <a href="stories.html">Stories</a>
+    <a href="books.html">Books</a>
+    <a href="sandbox.html" class="active" aria-current="page">Sandbox</a>
+    <a href="igm.html">IGM</a>
+    <a href="podcast.html">Podcast</a>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <main>
+    <div class="container">
+      <h1>Sandbox</h1>
+      <p class="intro">
+        Dive into interactive exercises that help you convert static into signal or navigate the Signal Labyrinth.
+      </p>
+
+      <div class="tool-grid">
+        <!-- Tool 1: Signal or Static -->
+        <div class="tool-card">
+          <div class="tool-icon">🔄</div>
+          <div class="tool-info">
+            <h2>Signal or Static</h2>
+            <p>
+              A quick Identity Reflection Tool: choose between “Signal” or “Static” on common statements and see a brief, poetic reflection.
+            </p>
+            <a href="signal-or-static.html">Try It Now</a>
+          </div>
+        </div>
+
+        <!-- Tool 2: Static Translator -->
+        <div class="tool-card">
+          <div class="tool-icon">⚙️</div>
+          <div class="tool-info">
+            <h2>Static Translator</h2>
+            <p>
+              Select a distortion belief and get a detailed write-up on why it’s static and how to realign with your true signal.
+            </p>
+            <a href="static-translator.html">Translate Static</a>
+          </div>
+        </div>
+
+        <!-- Tool 3: Signal Labyrinth -->
+        <div class="tool-card">
+          <div class="tool-icon">🧭</div>
+          <div class="tool-info">
+            <h2>Signal Labyrinth</h2>
+            <p>
+              Journey through a randomized maze of symbolic rooms—each choice gives feedback and builds to a personalized debrief.
+            </p>
+            <a href="signal-labyrinth.html">Enter the Maze</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>© 2025 Dustin Beasley</footer>
+
+</body>
+</html>
